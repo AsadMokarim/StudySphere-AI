@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+StudySphere AI
+{% endblock title %}
+
+{% block body %}
+<h2>Upload Content</h2>
+<p class="text-secondary">Upload your study materials to generate AI powered summary and quizes</p>
+<form action="/uploaded_content" class="upload_files">
+    <div class="upload border rounded-4 border-secondary-subtle">
+        <h4>Upload Files</h4>
+        <p class="text-secondary-emphasis">Supported formats: PDF, DOCX, PPTX, JPG, PNG</p>
+        <div class="upload_box">
+            <h3>Drop files or click to browse</h3>
+            <p class="text-secondary-emphasis">Upload up to 10 files, max 50MB each</p>
+            <input type="file" id="formFileMultiple" multiple class="btn btn-dark">
+        </div>
+    </div>
+</form>
+<!-- <div class="mb-3 mt-3">
+        <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+        <input class="form-control" type="file" id="formFileMultiple" multiple>
+    </div> -->
+
+{% endblock body %}
