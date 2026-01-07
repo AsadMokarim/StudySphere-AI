@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h2>Generated Summaries</h2>
+
+{% for item in allSummary %}
+    <div class="card mt-3 p-3">
+        <h3>Filename: {{ item.filename }}</h3>
+        <h5>Title: </h5>
+        <p>{{item.title}}</p>
+
+
+        <h5>Summary: </h5>
+        <p>{{ item.summary }}</p>
+        {% if item.key_points %}
+            <h5>Key Points: </h5>
+            {% for point in item.key_points %}
+            <p>{{loop.index}}. {{point}}</p>
+            {% endfor %}
+        {% endif %}
+        
+        {% if item.formulas %}
+            <h6>Formulas: </h6>
+            {% for formula in item.formulas %}
+                <p>{{loop.index}}.{{formula}}</p>
+                
+            {% endfor %}
+        {% endif %}            
+    </div>
+{% endfor %}
+
+{% endblock body %}
+
+
+
+{% block summary_active %}
+    nav_active
+{% endblock %}

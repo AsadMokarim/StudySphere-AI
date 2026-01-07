@@ -1,0 +1,160 @@
+{% extends "base.html" %} {% block body %}
+
+<h3>Quiz Results</h3>
+<div class="result_summary border rounded-4 border-secondary-subtle">
+    
+  <h2 
+  class="
+  {% if score>85 %}
+    txt-success-600
+    {% elif score>60 %}
+        txt-yellow-600
+    {% elif score>30 %}
+        text-primary
+    {% else %}
+        txt-danger-600
+    {% endif %}
+  "
+  >{{score}}%</h2>
+  <div class="score_perf
+  {% if score>85 %}
+    text-success-800
+        
+    {% elif score>60 %}
+        text-yellow-800
+    {% elif score>30 %}
+        text-info bg-secondary
+    {% else %}
+        text-danger-800
+    {% endif %}
+  ">
+  {% if score>85 %}
+        Excellent
+        
+    {% elif score>60 %}
+        Good
+    {% elif score>30 %}
+        Fair
+    {% else %}
+        Study hard
+    {% endif %}
+    
+  </div>
+  <h5>You answered {{correct}} out of {{total}} correctly</h5>
+</div>
+<div class="result-layout mt-4">
+  <div class="review border rounded-4 border-secondary-subtle">
+    <h5>Question review</h5>
+    <h6>Review your answers and explanations for each question</h6>
+    {% for q in questions %}
+
+    <div
+      class="review-q {% if q.is_correct %}correct{% else %}wrong{% endif %}"
+    >
+      <div class="review-q_head">
+        {% if q.is_correct %}
+        <div class="q_icon_correct">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            color="oklch(.627 .194 149.214)"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-check-big w-4 h-4 text-green-600"
+            aria-hidden="true"
+          >
+            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+            <path d="m9 11 3 3L22 4"></path>
+          </svg>
+        </div>
+        {% else %}
+        <div class="q_icon_wrong">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            color="oklch(.577 .245 27.325)"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-x w-4 h-4 text-red-600"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m15 9-6 6"></path>
+            <path d="m9 9 6 6"></path>
+          </svg>
+        </div>
+        {% endif %}
+        <h6>{{ loop.index }}. {{ q.question }}</h6>
+      </div>
+
+      {% for opt in q.options %}
+      <div
+        class="review_opt {% if opt == q.correct_answer %}right{% endif %} {% if opt == q.user_answer and not q.is_correct %}wrong{% endif %}"
+      >
+        <div>
+           {{option_idx[loop.index0]}}. {{ opt }} 
+        </div>
+        {% if opt ==q.correct_answer %}
+        <div class="q_icon_correct">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            color="oklch(.627 .194 149.214)"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-check-big w-4 h-4 text-green-600"
+            aria-hidden="true"
+          >
+            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
+            <path d="m9 11 3 3L22 4"></path>
+          </svg>
+        </div>
+
+        {% elif opt== q.user_answer %}
+        <div class="q_icon_wrong">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            color="oklch(.577 .245 27.325)"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-x w-4 h-4 text-red-600"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m15 9-6 6"></path>
+            <path d="m9 9 6 6"></path>
+          </svg>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <hr />
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}
+{% block quiz_active %} nav_active {% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block body %}
+
+<div class="quiz-container">
+  <!-- LEFT : QUESTION AREA -->
+  <div class="quiz-main">
+    <h5 class="question-number" id="q-number">
+      Question {{ current_index + 1 }}
+    </h5>
+
+    <h4 class="question-text" id="q-text">
+      {{ allques[current_index]["question"] }}
+    </h4>
+
+    <div class="options" id="options">
+      {% for option in allques[current_index]["options"] %}
+      <label class="option-box">
+        <input type="radio" name="answer" />
+        <span>{{ option }}</span>
+      </label>
+      {% endfor %}
+    </div>
+
+    <div class="quiz-footer">
+      <button id="prevBtn" class="btn btn-light"><-Previous</button>
+
+      <span class="progress-text" id="progress">
+        {{ answered_count }} of {{ allques|length }} answered
+      </span>
+
+      <button id="submitBtn" class="btn btn-success w-10 mt-3">
+        Submit Quiz
+      </button>
+      <button id="nextBtn" class="btn btn-warning">Next -></button>
+    </div>
+  </div>
+
+  <!-- RIGHT : QUESTION NAVIGATOR -->
+  <div class="quiz-nav">
+    <h6>Question Navigator</h6>
+
+    <div class="nav-grid" id="navigator">
+      {% for q in allques %}
+      <div
+        class="nav-item {% if loop.index0 == current_index %}active{% endif %}"
+      >
+        {{ loop.index }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="legend">
+      <p><span class="dot current"></span> Current</p>
+      <p><span class="dot answered"></span> Answered</p>
+    </div>
+  </div>
+</div>
+
+<!-- Result -->
+<!-- <div id="resultView" class="hidden"></div> -->
+
+<form id="resultForm" method="POST" action="/results">
+  <input type="hidden" name="answers" id="answersInput" />
+</form>
+
+<script>
+  const quizData = {{ allques | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/quiz.js' ) }}"></script>
+{% endblock %} 
+
+
+{% block quiz_active %} nav_active {% endblock %}

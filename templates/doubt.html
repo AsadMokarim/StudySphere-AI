@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    
+
+<form class="doubt_box border rounded-4 border-secondary-subtle" action="/doubt" method="POST">
+    <div class="response typing" {% if not response %}style="display:none"{% endif %}>
+        {% if response %}
+            {{response}}
+        {% endif %}
+    </div>
+
+    <br>
+    <div class="user_chat border border-secondary-subtle form-group">
+
+        <input type="text" class="form-control" name="user_prompt" placeholder="Enter your Doubt here" id="user_prompt">
+        <input type="submit" id="prompt_submit">
+    </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const typingElements = document.querySelectorAll('.typing');
+  
+  typingElements.forEach(function(element, index) {
+    // Store original content and replace with empty for typing effect
+    const originalText = element.textContent;
+    element.textContent = '';
+    
+    // Type character by character
+    let i = 0;
+    const timer = setInterval(() => {
+      element.textContent += originalText.charAt(i);
+      i++;
+      
+      if (i >= originalText.length) {
+        clearInterval(timer);
+        // Remove typing effect after completion
+        setTimeout(() => {
+          element.classList.add('completed');
+        }, 500);
+      }
+    }, 20); // Adjust speed: smaller = faster
+  });
+});
+</script>
+
+
+{% endblock %}
+
+{% block doubt_active %}
+    nav_active
+{% endblock %}
