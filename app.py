@@ -1,6 +1,9 @@
 from flask import Flask, redirect, render_template, request, url_for, session
 import os
 import json
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 
 from flask_sqlalchemy import SQLAlchemy
